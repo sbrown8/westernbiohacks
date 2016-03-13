@@ -25,7 +25,7 @@ and open the template in the editor.
 			<div class="col-md-3"></div>
 			<div class="col-md-6">
 				<div id="upload-or-results">	
-					<form role="form" action="uploadResults.php" method="post" enctype="multipart/form-data">
+					<form role="form" method="post" enctype="multipart/form-data">
 					  <div class="form-group">
 					    <label for="treatment1">Treatment Group 1:</label>
 					    <input type="text" class="form-control" id="treatment1">
