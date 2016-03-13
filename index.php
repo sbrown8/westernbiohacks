@@ -99,9 +99,11 @@ and open the template in the editor.
 				var div = document.getElementById("upload-or-results");
 				div.style.visibility='hidden';
 				pizza(2);
-				setTimeout(pizza(3), 5000);
-				setTimeout(pizza(4), 5000);
-				setTimeout(pizza(5), 5000);
+				setTimeout(pizza(3), 50000);
+				setTimeout(pizza(4), 50000);
+				setTimeout(pizza(5), 50000);
+				div.innerHTML = "<button class="btn btn-default">Download Results</button>";
+				div.style.visibility = 'visible';
 			}
 		</script>
     </body>
