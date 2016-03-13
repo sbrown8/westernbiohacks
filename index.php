@@ -30,11 +30,23 @@ and open the template in the editor.
 					    <label for="treatment1">Treatment Group 1:</label>
 					    <input type="text" class="form-control" id="treatment1">
 					  </div>
+					  <div class="row">
+					  <div class="col-md-3">
 					  <div class="form-group">
-					  	<input class="btn btn-default" type="file" name="fwd" id="trt1fwd1">
+					  	<input type="file" name="fwd" id="trt1fwd1">
 						</div>
 					<div class="form-group">
 						<input class="btn btn-default" type="submit" value="Upload Forward" name="submit">
+					  </div>
+					  </div>
+					  <div class="col-md-3">
+					  <div class="form-group">
+					  	<input type="file" name="rev" id="trt1rev">
+						</div>
+					<div class="form-group">
+						<input class="btn btn-default" type="submit" value="Upload Forward" name="submit">
+					  </div>
+					  </div>
 					  </div>
 					  <div class="form-group">
 					    <label for="treatment2">Treatment Group 2:</label>
