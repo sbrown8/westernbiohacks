@@ -22,15 +22,12 @@ and open the template in the editor.
 				<div id="upload-or-results">	
 					<form role="form">
 					  <div class="form-group">
-					    <label for="email">Email address:</label>
-					    <input type="email" class="form-control" id="email">
+					    <label for="email">Treatment Group 1:</label>
+					    <input type="treatment" class="form-control" id="treatment1">
 					  </div>
 					  <div class="form-group">
-					    <label for="pwd">Password:</label>
-					    <input type="password" class="form-control" id="pwd">
-					  </div>
-					  <div class="checkbox">
-					    <label><input type="checkbox"> Remember me</label>
+					    <label for="pwd">Treatment Group 2:</label>
+					    <input type="treatment" class="form-control" id="treatment2">
 					  </div>
 					  <button type="submit" class="btn btn-default">Submit</button>
 					</form>
@@ -38,7 +35,7 @@ and open the template in the editor.
 			</div>
 		<div class="col-md-3"></div>
 		</div>
-        <?php
+        <?php:
         		
 		
         ?>
