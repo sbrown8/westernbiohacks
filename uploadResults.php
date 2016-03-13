@@ -1,3 +1,3 @@
 <?php
-echo "This is a php page. woot."
+var_dump $_POST;
 ?>
