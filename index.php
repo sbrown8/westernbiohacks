@@ -34,7 +34,7 @@ and open the template in the editor.
 					  	<input type="file" name="fwd" id="trt1fwd1">
 						</div>
 					<div class="form-group">
-						<input type="submit" value="Upload Forward" name="submit">
+						<input class="btn btn-default" type="submit" value="Upload Forward" name="submit">
 					  </div>
 					  <div class="form-group">
 					    <label for="treatment2">Treatment Group 2:</label>
