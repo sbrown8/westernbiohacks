@@ -50,7 +50,7 @@ and open the template in the editor.
 					  </div>
 					  </div>
 					  </div>
-					  <button class="btn btn-default" id="trt1-more-files" onClick="addFASQ("trt1");">Add more FASTQ files</button>
+					  <button class="btn btn-default" id="trt1-more-files" onClick="addFASQ('trt1');">Add more FASTQ files</button>
 					  <div class="form-group">
 					    <label for="treatment2">Treatment Group 2:</label>
 					    <input type="text" class="form-control" id="treatment2">
