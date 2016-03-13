@@ -17,6 +17,11 @@ and open the template in the editor.
     </head>
     <body>
 		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-8"><img class="center-block" src="img/header_arrow0.png"/></div>
+			<div class="col-md-2"></div>
+		</div>
+		<div class="row">
 			<div class="col-md-3"></div>
 			<div class="col-md-6">
 				<div id="upload-or-results">	
