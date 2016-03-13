@@ -18,7 +18,7 @@ and open the template in the editor.
     <body>
 		<div class="row">
 			<div class="col-md-2"></div>
-			<div class="col-md-8"><img class="center-block" src="img/header_arrow0.png"/></div>
+			<div class="col-md-8"><img class="center-block" src="img/header_arrow01.png" id="headerImg" /></div>
 			<div class="col-md-2"></div>
 		</div>
 		<div class="row">
@@ -75,9 +75,9 @@ and open the template in the editor.
 					  </div>
 					  </div>
 					  </div>
-					  <button class="btn btn-default" id="trt2-more-files" onClick="addFASQ("trt2");">Add more FASTQ files</button>
+					  <button class="btn btn-default" id="trt2-more-files" onClick="addFASQ('trt2');">Add more FASTQ files</button>
 					  <br>
-					  <button type="submit" class="btn btn-default">Submit</button>
+					  <button onClick="pizza(2)" class="btn btn-default">Submit</button>
 					</div>
 				</div>
 			</div>
@@ -89,6 +89,22 @@ and open the template in the editor.
 				var div = document.getElementById(divId);
 				var fasqField = "<div class=\"row\"><div class=\"col-md-6\"><div class=\"form-group\"><input type=\"file\" name=\"fwd\"></div><div class=\"form-group\"><input class=\"btn btn-default\" type=\"submit\" value=\"Upload Forward\" name=\"submit\"></div></div><div class=\"col-md-6\"><div class=\"form-group\"><input type=\"file\" name=\"rev\"></div><div class=\"form-group\"><input class=\"btn btn-default\" type=\"submit\" value=\"Upload Reverse\" name=\"submit\"></div></div></div>";
 				div.innerHTML = div.innerHTML + fasqField;
+			}
+			
+			function pizza(num){
+				document.getElementById("headerImg").src="img/header_arrow0" + num + ".png";
+			}
+			
+			function submitFunction(){
+				var div = document.getElementById(upload-or-results);
+				div.style.visibility='hidden';
+				pizza(2);
+				setTimeout('', 5000);
+				pizza(3);
+				setTimeout('', 5000);
+				pizza(4);
+				setTimeout('', 5000);
+				pizza(5);
 			}
 		</script>
         <?php:
