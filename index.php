@@ -77,7 +77,7 @@ and open the template in the editor.
 					  </div>
 					  <button class="btn btn-default" id="trt2-more-files" onClick="addFASQ('trt2');">Add more FASTQ files</button>
 					  <br>
-					  <button onClick="pizza(2)" class="btn btn-default">Submit</button>
+					  <button onClick="submitFunction()" class="btn btn-default">Submit</button>
 					</div>
 				</div>
 			</div>
