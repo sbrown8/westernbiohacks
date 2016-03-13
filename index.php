@@ -50,7 +50,7 @@ and open the template in the editor.
 					  </div>
 					  </div>
 					  </div>
-					  <button class="btn btn-default" id="trt1-more-files">Add more FASTQ files</button>
+					  <button class="btn btn-default" id="trt1-more-files" onClick="addFASQ("trt1");">Add more FASTQ files</button>
 					  <div class="form-group">
 					    <label for="treatment2">Treatment Group 2:</label>
 					    <input type="text" class="form-control" id="treatment2">
@@ -75,13 +75,39 @@ and open the template in the editor.
 					  </div>
 					  </div>
 					  </div>
-					  <button class="btn btn-default" id="trt2-more-files">Add more FASTQ files</button>
+					  <button class="btn btn-default" id="trt2-more-files" onClick="addFASQ("trt2");">Add more FASTQ files</button>
+					  <br>
 					  <button type="submit" class="btn btn-default">Submit</button>
 					</form>
 				</div>
 			</div>
 		<div class="col-md-3"></div>
 		</div>
+		
+		<script>
+			function addFASQ(divId){
+				var div = document.getElementById(divId);
+				var fasqField = '<div class="row">
+					  <div class="col-md-6">
+					  <div class="form-group">
+					  	<input type="file" name="fwd">
+						</div>
+					<div class="form-group">
+						<input class="btn btn-default" type="submit" value="Upload Forward" name="submit">
+					  </div>
+					  </div>
+					  <div class="col-md-6">
+					  <div class="form-group">
+					  	<input type="file" name="rev">
+						</div>
+					<div class="form-group">
+						<input class="btn btn-default" type="submit" value="Upload Reverse" name="submit">
+					  </div>
+					  </div>
+					  </div>';
+				div.innerHTML = div.innerHTML + fasqField;
+			}
+		</script>
         <?php:
         		
 		
