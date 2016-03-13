@@ -102,8 +102,6 @@ and open the template in the editor.
 				setTimeout(pizza(3), 50000);
 				setTimeout(pizza(4), 50000);
 				setTimeout(pizza(5), 50000);
-				div.innerHTML = "<button class="btn btn-default">Download Results</button>";
-				div.style.visibility = 'visible';
 			}
 		</script>
     </body>
