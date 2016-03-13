@@ -55,6 +55,27 @@ and open the template in the editor.
 					    <label for="treatment2">Treatment Group 2:</label>
 					    <input type="text" class="form-control" id="treatment2">
 					  </div>
+					  <div id="trt2">
+					  <div class="row">
+					  <div class="col-md-6">
+					  <div class="form-group">
+					  	<input type="file" name="fwd" id="trt2fwd1">
+						</div>
+					<div class="form-group">
+						<input class="btn btn-default" type="submit" value="Upload Forward" name="submit">
+					  </div>
+					  </div>
+					  <div class="col-md-6">
+					  <div class="form-group">
+					  	<input type="file" name="rev" id="trt2rev">
+						</div>
+					<div class="form-group">
+						<input class="btn btn-default" type="submit" value="Upload Reverse" name="submit">
+					  </div>
+					  </div>
+					  </div>
+					  </div>
+					  <button class="btn btn-default" id="trt2-more-files">Add more FASTQ files</button>
 					  <button type="submit" class="btn btn-default">Submit</button>
 					</form>
 				</div>
