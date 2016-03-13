@@ -96,20 +96,13 @@ and open the template in the editor.
 			}
 			
 			function submitFunction(){
-				var div = document.getElementById(upload-or-results);
+				var div = document.getElementById("upload-or-results");
 				div.style.visibility='hidden';
 				pizza(2);
-				setTimeout('', 5000);
-				pizza(3);
-				setTimeout('', 5000);
-				pizza(4);
-				setTimeout('', 5000);
-				pizza(5);
+				setTimeout(pizza(3), 5000);
+				setTimeout(pizza(4), 5000);
+				setTimeout(pizza(5), 5000);
 			}
 		</script>
-        <?php:
-        		
-		
-        ?>
     </body>
 </html>
