@@ -1,4 +1,4 @@
 <?php
-echo "New message. Really.";
+echo "New message";
 ?>
 
