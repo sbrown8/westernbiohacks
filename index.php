@@ -19,22 +19,27 @@ and open the template in the editor.
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     </head>
     <body>
-		<button type="button" class="btn btn-default">Begin</button>
-		<div id="upload-form">	
-			<form role="form">
-			  <div class="form-group">
-			    <label for="email">Email address:</label>
-			    <input type="email" class="form-control" id="email">
-			  </div>
-			  <div class="form-group">
-			    <label for="pwd">Password:</label>
-			    <input type="password" class="form-control" id="pwd">
-			  </div>
-			  <div class="checkbox">
-			    <label><input type="checkbox"> Remember me</label>
-			  </div>
-			  <button type="submit" class="btn btn-default">Submit</button>
-			</form>
+		<div class="row">
+			<div class="col-md-3"></div>
+			<dic class="col-md-6">
+				<div id="upload-or-results">	
+					<form role="form">
+					  <div class="form-group">
+					    <label for="email">Email address:</label>
+					    <input type="email" class="form-control" id="email">
+					  </div>
+					  <div class="form-group">
+					    <label for="pwd">Password:</label>
+					    <input type="password" class="form-control" id="pwd">
+					  </div>
+					  <div class="checkbox">
+					    <label><input type="checkbox"> Remember me</label>
+					  </div>
+					  <button type="submit" class="btn btn-default">Submit</button>
+					</form>
+				</div>
+			</div>
+		<div class="col-md-3"></div>
 		</div>
         <?php
         		
