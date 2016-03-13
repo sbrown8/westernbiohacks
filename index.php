@@ -25,7 +25,7 @@ and open the template in the editor.
 			<div class="col-md-3"></div>
 			<div class="col-md-6">
 				<div id="upload-or-results">	
-					<form role="form" method="post" enctype="multipart/form-data">
+					<div role="form" enctype="multipart/form-data">
 					  <div class="form-group">
 					    <label for="treatment1">Treatment Group 1:</label>
 					    <input type="text" class="form-control" id="treatment1">
@@ -78,7 +78,7 @@ and open the template in the editor.
 					  <button class="btn btn-default" id="trt2-more-files" onClick="addFASQ("trt2");">Add more FASTQ files</button>
 					  <br>
 					  <button type="submit" class="btn btn-default">Submit</button>
-					</form>
+					</div>
 				</div>
 			</div>
 		<div class="col-md-3"></div>
