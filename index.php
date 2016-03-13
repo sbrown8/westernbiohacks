@@ -21,7 +21,7 @@ and open the template in the editor.
     <body>
 		<div class="row">
 			<div class="col-md-3"></div>
-			<dic class="col-md-6">
+			<div class="col-md-6">
 				<div id="upload-or-results">	
 					<form role="form">
 					  <div class="form-group">
