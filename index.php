@@ -87,24 +87,7 @@ and open the template in the editor.
 		<script>
 			function addFASQ(divId){
 				var div = document.getElementById(divId);
-				var fasqField = '<div class="row">
-					  <div class="col-md-6">
-					  <div class="form-group">
-					  	<input type="file" name="fwd">
-						</div>
-					<div class="form-group">
-						<input class="btn btn-default" type="submit" value="Upload Forward" name="submit">
-					  </div>
-					  </div>
-					  <div class="col-md-6">
-					  <div class="form-group">
-					  	<input type="file" name="rev">
-						</div>
-					<div class="form-group">
-						<input class="btn btn-default" type="submit" value="Upload Reverse" name="submit">
-					  </div>
-					  </div>
-					  </div>';
+				var fasqField = "<div class=\"row\"><div class=\"col-md-6\"><div class=\"form-group\"><input type=\"file\" name=\"fwd\"></div><div class=\"form-group\"><input class=\"btn btn-default\" type=\"submit\" value=\"Upload Forward\" name=\"submit\"></div></div><div class=\"col-md-6\"><div class=\"form-group\"><input type=\"file\" name=\"rev\"></div><div class=\"form-group\"><input class=\"btn btn-default\" type=\"submit\" value=\"Upload Reverse\" name=\"submit\"></div></div></div>";
 				div.innerHTML = div.innerHTML + fasqField;
 			}
 		</script>
