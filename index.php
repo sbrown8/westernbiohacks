@@ -20,14 +20,17 @@ and open the template in the editor.
 			<div class="col-md-3"></div>
 			<div class="col-md-6">
 				<div id="upload-or-results">	
-					<form role="form">
+					<form role="form" action="uploadResults.php" method="post" enctype="multipart/form-data">
 					  <div class="form-group">
-					    <label for="email">Treatment Group 1:</label>
-					    <input type="treatment" class="form-control" id="treatment1">
+					    <label for="treatment1">Treatment Group 1:</label>
+					    <input type="text" class="form-control" id="treatment1">
 					  </div>
 					  <div class="form-group">
-					    <label for="pwd">Treatment Group 2:</label>
-					    <input type="treatment" class="form-control" id="treatment2">
+					  	<input type="file" name="fwd" id="trt1fwd1"><input type="submit" value="Upload Forward" name="submit">
+					  </div>
+					  <div class="form-group">
+					    <label for="treatment2">Treatment Group 2:</label>
+					    <input type="text" class="form-control" id="treatment2">
 					  </div>
 					  <button type="submit" class="btn btn-default">Submit</button>
 					</form>
