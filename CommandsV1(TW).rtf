@@ -1,0 +1,305 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf340
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Menlo-Regular;\f2\fnil\fcharset0 Menlo-Bold;
+}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww10640\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 0. Pre-settings\
+	0.1 Download brand new files only once\
+	0.2 Enter read upload settings\
+1. Assembly\
+	1.1 Assembly statistics\
+	1.2 Transdecoder\
+2. Annotation\
+	2.1 Blastp\
+	2.2 Blastx\
+	2.3 Pfam\
+	2.4 Trinotate.sqlite database\
+		2.4.1 Create gene trans map, and location\
+		2.4.2 Load Blastp, Blastx, Pfam\
+		2.4.3 Generate Trinotate report\
+		2.4.4 GoSeq\
+3. Quantification\
+	3.1 kallisto estimation\
+	3.2 conversion from abundance to matrix\
+4. Differential Gene Expression Analysis\
+	4.1 run DESeq2 (MA, volcano plot)\
+	4.2 analyze DGE (heatmap, sample correlation matrix)\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 0. Pre-settings
+\b0 \
+These are the things you only need to do once.\
+\
+
+\b 0.1 Download
+\b0 \
+You only need to download the Trinotate.sqlite database once (for use in step 2.4)\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1 \cf0 \expnd0\expndtw0\kerning0
+wget "https://data.broadinstitute.org/Trinity/Trinotate_v3_RESOURCES/Trinotate_v3.sqlite.gz" -O Trinotate.sqlite.gz\
+\
+gunzip Trinotate.sqlite.gz\
+\
+
+\f2\b 0.2 Read dataset upload
+\f1\b0 \
+\
+Important parameters:\
+-seqType fq\
+-orientation left, right\
+-strand	RF or FR (usually RF, and in this case as well)\
+-*normalize (for big datasets > 300 million reads\
+\
+\
+#### Must specify samples in samples.txt (later used in step 4. DGE) and tab delimited\
+ex.\
+\
+Nymph	TRN\
+Nymph	BSN\
+Nymph	NCN\
+\
+Soldier	TRS\
+Soldier	BSS\
+Solider	NCS\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf0 \kerning1\expnd0\expndtw0 1. Assembly\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf0 \expnd0\expndtw0\kerning0
+\
+/home/ruthgracewong/\kerning1\expnd0\expndtw0 \CocoaLigature0 trinityrnaseq-2.1.1/Trinity --seqType fq --max_memory 200G --left left_reads.fq.gz --right_reads.fq.gz --CPU 12  --full_cleanup --output user_Trinity > user_assembly.log
+\f0\b \CocoaLigature1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b0 \cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 1.1 Assembly statistics
+\b0 \
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1 \cf0 \expnd0\expndtw0\kerning0
+/home/ruthgracewong/\kerning1\expnd0\expndtw0 \CocoaLigature0 trinityrnaseq-2.1.1/util/TrinityStats.pl \expnd0\expndtw0\kerning0
+\CocoaLigature1 /home/ruthgracewong/reads/user_\kerning1\expnd0\expndtw0 \CocoaLigature0 Trinity.fasta
+\f0 \CocoaLigature1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 1.2 Transdecoder
+\f1\b0 \expnd0\expndtw0\kerning0
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+#determine open reading frames\
+/home/ruthgracewong/\kerning1\expnd0\expndtw0 \CocoaLigature0 TransDecoder-2.0.1/TransDecoder.LongOrfs -t \expnd0\expndtw0\kerning0
+\CocoaLigature1 /home/ruthgracewong/reads/user_\kerning1\expnd0\expndtw0 \CocoaLigature0 Trinity.fasta\
+\
+#predict which orfs are good for pep level blast\
+\expnd0\expndtw0\kerning0
+\CocoaLigature1 /home/ruthgracewong/\kerning1\expnd0\expndtw0 \CocoaLigature0 TransDecoder-2.0.1/TransDecoder.Predict -t \expnd0\expndtw0\kerning0
+\CocoaLigature1 /home/ruthgracewong/reads/user_\kerning1\expnd0\expndtw0 \CocoaLigature0 Trinity.fasta\expnd0\expndtw0\kerning0
+\CocoaLigature1 \
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf0 \kerning1\expnd0\expndtw0 2. Annotation\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b0 \cf0 Using the trinotate package BLAST suite, SwissProt, HMMER - Pfam
+\b \
+
+\b0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 2.1 Blastp
+\b0 \
+\pard\pardeftab720\partightenfactor0
+
+\f1 \cf0 \expnd0\expndtw0\kerning0
+\
+/home/ruthgracewong/ncbi-blast-2.3.0+/bin/blastp -query user_\kerning1\expnd0\expndtw0 \CocoaLigature0 Trinity.transdecoder.pep -db \expnd0\expndtw0\kerning0
+\CocoaLigature1 /home/ruthgracewong/ncbi-blast-2.3.0+/db/uniprot_sprot.pep -num_threads 16 -max_target_seqs 1 -outfmt 6 > blastp.outfmt6\
+\pard\pardeftab720\partightenfactor0
+
+\f0 \cf0 \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 2.2 Blastx
+\b0 \
+\pard\pardeftab720\partightenfactor0
+
+\f1 \cf0 \expnd0\expndtw0\kerning0
+\
+/home/ruthgracewong/ncbi-blast-2.3.0+/bin/blastx -query user_Trinity.fast \kerning1\expnd0\expndtw0 \CocoaLigature0 -db \expnd0\expndtw0\kerning0
+\CocoaLigature1 /home/ruthgracewong/ncbi-blast-2.3.0+/db/uniprot_sprot.pep -num_threads 16 -max_target_seqs 1 -outfmt 6 > blastx.outfmt6\
+\pard\pardeftab720\partightenfactor0
+
+\f0 \cf0 \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 2.3 Pfam
+\b0 \
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1 \cf0 \expnd0\expndtw0\kerning0
+/home/ruthgracewong/hmmer-3.1b2-linux-intel-x86_64/binaries/hmmscan --cpu 16 --domtblout TrinotatePFAM.out /home/ruthgracewong/ncbi-blast-2.3.0+/db/Pfam-A.hmm user_\kerning1\expnd0\expndtw0 \CocoaLigature0 Trinity.transdecoder.pep\expnd0\expndtw0\kerning0
+\CocoaLigature1  > pfam.log
+\f0 \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 2.4 Trinotate.sqlite database
+\b0 \
+From step 0.1, Trinotate developers made a template which you can straight load into\
+\
+
+\b 2.4.1 Create gene trans map, and location
+\b0 \
+\
+#Create a gene trans map\
+\pard\tx92\tx220\tx720\pardeftab720\partightenfactor0
+
+\f1 \cf0 \expnd0\expndtw0\kerning0
+/home/ruthgracewong/\kerning1\expnd0\expndtw0 \CocoaLigature0 trinityrnaseq-2.1.1/\expnd0\expndtw0\kerning0
+\CocoaLigature1 util/support_scripts/get_Trinity_gene_to_trans_map.pl user_Trinity.fasta >  user_Trinity.fasta.gene_trans_map
+\f0 \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+#match the predicted protein onto the gene trans map\
+\pard\tx92\tx220\tx720\pardeftab720\partightenfactor0
+
+\f1 \cf0 \expnd0\expndtw0\kerning0
+/home/ruthgracewong/Trinotate-3.0.0/Trinotate Trinotate.sqlite init --gene_trans_map user_Trinity.fasta.gene_trans_map --transcript_fasta user_Trinity.fasta --transdecoder_pep user_Trinity.transdecoder.pep
+\f0 \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 2.4.2 Load Blastp, Blastx, Pfam
+\b0 \
+\
+\pard\tx92\tx220\tx720\pardeftab720\partightenfactor0
+
+\f1 \cf0 \expnd0\expndtw0\kerning0
+/home/ruthgracewong/Trinotate-3.0.0/Trinotate Trinotate.sqlite LOAD_swissprot_blastp blastp.outfmt6\
+\
+/home/ruthgracewong/Trinotate-3.0.0/Trinotate Trinotate.sqlite LOAD_swissprot_blastx blastx.outfmt6\
+\
+home/ruthgracewong/Trinotate-3.0.0/Trinotate Trinotate.sqlite LOAD_pfam TrinotatePFAM.out
+\f0 \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 2.4.3 Generate Trinotate report
+\b0 \
+\
+\pard\tx92\tx220\tx720\pardeftab720\partightenfactor0
+
+\f1 \cf0 \expnd0\expndtw0\kerning0
+home/ruthgracewong/Trinotate-3.0.0/Trinotate Trinotate.sqlite report > trinotate_annotation_report.xls
+\f0 \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 2.4.4 GoSeq (Could be ran in step 4.2)
+\b0 \
+\pard\pardeftab720\partightenfactor0
+
+\f1 \cf0 \expnd0\expndtw0\kerning0
+######################################\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf0 \kerning1\expnd0\expndtw0 3. Quantification
+\b0 \
+Need to know how many reads cover each gene\
+\
+
+\b 3.1 kallisto estimation
+\b0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1 \cf0 \CocoaLigature0 \
+#!/bin/sh\
+\
+export PATH=/\expnd0\expndtw0\kerning0
+\CocoaLigature1 /home/ruthgracewong/bowtie2-2.2.8\kerning1\expnd0\expndtw0 \CocoaLigature0 :$PATH\
+export PATH=/\expnd0\expndtw0\kerning0
+\CocoaLigature1 home/ruthgracewong\kerning1\expnd0\expndtw0 \CocoaLigature0 /kallisto_linux-v0.42.4/:$PATH\
+\
+/home/ruthgracewong/trinityrnaseq-2.1.1/util/align_and_estimate_abundance.pl --transcripts trinity_out_dir.Trinity.fasta --seqType fq --left BSN_R1.fastq --right BSN_R2.fastq --est_method kallisto --output_dir BSN --prep_reference\
+\
+/home/ruthgracewong/trinityrnaseq-2.1.1/util/align_and_estimate_abundance.pl --transcripts trinity_out_dir.Trinity.fasta --seqType fq --left BSS_R1.fastq --right BSS_R2.fastq --est_method kallisto --output_dir BSS --prep_reference\
+\
+/home/ruthgracewong/trinityrnaseq-2.1.1/util/align_and_estimate_abundance.pl --transcripts trinity_out_dir.Trinity.fasta --seqType fq --left NCN_R1.fastq --right NCN_R2.fastq --est_method kallisto --output_dir NCN --prep_reference\
+\
+/home/ruthgracewong/trinityrnaseq-2.1.1/util/align_and_estimate_abundance.pl --transcripts trinity_out_dir.Trinity.fasta --seqType fq --left NCS_R1.fastq --right NCS_R2.fastq --est_method kallisto --output_dir NCS --prep_reference\
+\
+/home/ruthgracewong/trinityrnaseq-2.1.1/util/align_and_estimate_abundance.pl --transcripts trinity_out_dir.Trinity.fasta --seqType fq --left TRN_R1.fastq --right TRN_R2.fastq --est_method kallisto --output_dir TRN --prep_reference\
+\
+/home/ruthgracewong/trinityrnaseq-2.1.1/util/align_and_estimate_abundance.pl --transcripts trinity_out_dir.Trinity.fasta --seqType fq --left TRS_R1.fastq --right TRS_R2.fastq --est_method kallisto --output_dir TRS --prep_reference\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0 \cf0 \CocoaLigature1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 3.2 conversion from abundance to matrix
+\f1\b0 \expnd0\expndtw0\kerning0
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 This produces counts.matrix which can be used to make TMM and TPM\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 \kerning1\expnd0\expndtw0 \CocoaLigature0 /home/ruthgracewong/trinityrnaseq-2.1.1/util/abundance_estimates_to_matrix.pl --est_method kallisto --out_prefix user_Trinity --name_sample_by_basedir BSN/abundance.tsv BSS/abundance.tsv BSW/abundance.tsv NCN/abundance.tsv NCS/abundance.tsv NCW/abundance.tsv TRN/abundance.tsv TRS/abundance.tsv  TRW/abundance.tsv\expnd0\expndtw0\kerning0
+\CocoaLigature1 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf0 \kerning1\expnd0\expndtw0 4. Differential Gene Expression Analysis
+\b0 \
+Now we can use the TMM or TPM matrix to do differential gene expression\
+\
+
+\b 4.1 run DESeq2 (MA, volcano plot)
+\b0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1 \cf0 \CocoaLigature0 /home/ruthgracewong/trinityrnaseq-2.1.1/Analysis/DifferentialExpression/run_DE_analysis.pl --matrix user_Trinity.counts.matrix --method DESeq --samples_file samples_described.txt  --output DESeq_analysis
+\f0 \CocoaLigature1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 4.2 analyze DGE (heatmap, sample correlation matrix) & GO enrichment
+\f1\b0 \expnd0\expndtw0\kerning0
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 \kerning1\expnd0\expndtw0 \CocoaLigature0 \
+/home/ruthgracewong/trinityrnaseq-2.1.1/Analysis/DifferentialExpression/analyze_diff_expr.pl --matrix /home/ruthgracewong/trans_counts.
+\fs22 TMM.EXPR.matrix
+\fs24  --output diff_exp_gene --samples /home/ruthgracewong/samples_described.txt --examine_GO_enrichment --GO_annots ***** --gene_lengths *****\expnd0\expndtw0\kerning0
+\CocoaLigature1 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+\
+\
+}
